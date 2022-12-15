@@ -1,0 +1,198 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 100
+struct node
+{
+	int data;
+	struct node*address;
+}s;
+
+//insert at front
+void insertatfront(int data,struct node*head)
+{
+	struct node* node=(struct node*)malloc(sizeof(struct node));
+	node->data=data;
+	node->address=NULL;
+	node->address=head;
+	head=node;
+}
+//insert at end
+void insertatend(int data,struct node* head)
+{
+	struct node* node=(struct node*)malloc(sizeof(struct node));
+	node->data=data;
+	node->address=NULL;
+	if(head==NULL);
+	{
+		head==node;
+	}
+	struct node* s;
+	s=head;
+	while(s->address!=NULL)
+	{
+		s=s->address;
+	}
+	s->address=node;
+}
+//insertafter
+void insertafter(int data,struct node*head,int after)
+{
+	struct node* node=(struct node*)malloc(sizeof(struct node));
+	node->data=data;
+	node->address=NULL;
+	struct node *s;
+	s=head;
+	while(s->data!=after)
+	{
+		s=s->address;
+	}
+	node->address=s->address;
+	s->address=node;
+}
+//display
+void display(struct node* head)
+{
+	struct node* s;
+	s=head;
+	while(s!=NULL)
+	{
+		printf("%d",s->data);
+		s=s->address;
+	}
+}
+//deletion at end
+void deleteatend(struct node* head)
+{
+	struct node* s;
+	s=head;
+	while(s->address->address!=NULL)
+	{
+	s=s->address;
+	}
+	free(s->address);
+	s->address=NULL;
+	
+}
+//deletion at front
+void deleteatfront(struct node* head)
+{
+	struct node* s;
+	struct node* temp;
+	temp=head->address;
+	free(temp);
+}
+//delete at speific position
+void deleteatspecificposition(struct node* head,int pos)
+{
+	struct node* s;
+	struct node* temp;
+	pos--;
+	s=head;
+	while(pos>1)
+	{
+		s=s->address;
+		pos--;
+	}
+	temp=s->address;
+	s->address=s->address->address;
+	free(temp);
+		
+}
+//middle
+void printMiddle(struct node* head)
+{
+    struct node *slow_node = head;
+    struct node *fast_node = head;
+ 
+    if (head!=NULL)
+    {
+        while (fast_node != NULL && fast_node->address != NULL)
+        {
+            fast_node = fast_node->address->address;
+            slow_node = slow_node->address;
+        }
+        printf("The middle element is [%d]",
+                slow_node->data);
+    }
+}
+
+int main()
+{
+	int choice,after;
+	struct node* head;
+	head=NULL;
+	while(1)
+	{
+		int data;
+		int pos;
+		printf("\n linklist menu");
+		printf("\n 1.insert at front");
+		printf("\n 2.insert at end");
+		printf("\n 3.insert after");
+		printf("\n 4.display");
+		printf("\n 5.delete at end");
+		printf("\n 6.delete at front");
+		printf("\n 7.delete at specific position");
+		printf("\n 8.Find middle Node\n");
+		printf("\n enter your choice=");
+		scanf("%d",&choice);
+
+switch(choice)
+		{
+			case 1:
+		{
+				printf("\n enter data=");
+				scanf("%d",&data);
+				insertatfront(data,head);
+	}
+				break;
+			
+			case 2:
+	{
+					printf("\n enter data");
+					scanf("%d",&data);
+					insertatend(data,head);
+				}
+				break;
+				
+			case 3:
+					{
+						printf("\n enter data");
+						scanf("%d",&data);
+						scanf("%d",&after);
+						insertafter(data,head,after);
+				}
+				
+				break;
+				
+			case 4:
+						display(head);
+			
+				break;
+			case 5:
+						deleteatend(head);
+			
+				break;
+
+		    case 6:
+						deleteatfront(head);
+			
+				break;
+			case 7:
+						scanf("%d",&pos);
+						deleteatspecificposition(head,pos);
+			
+				break;
+			case 8:
+						printMiddle(head);
+				break;						
+
+
+			default:
+				exit(1);
+				
+		}
+		
+	}
+	
+}
